@@ -12,6 +12,7 @@ const user = document.getElementById('user')
 
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e){
+  e.preventDefault();
   const zip =  document.getElementById('zip').value;
   const feelings = document.getElementById("feelings").value;
   getWeather(baseURL, zip, apiKey)
