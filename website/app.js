@@ -6,17 +6,13 @@ const apiKey = 'cbcc3079d870a8e1433045013f9bbe87';
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-const user = document.getElementById('user')
-
-
-
 document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e){
   e.preventDefault();
   const zip =  document.getElementById('zip').value;
   const feelings = document.getElementById("feelings").value;
+  
   getWeather(baseURL, zip, apiKey)
-
   .then(function(data) {
     console.log(data);
     postData('/add', {
@@ -66,7 +62,6 @@ const updateUI = async () =>{
   try {
   // Transform into JSON
   const allData = await request.json()
-  console.log(allData)
   // Write updated data to DOM elements
   document.getElementById('temp').innerHTML = Math.round(allData[0].temp);
   document.getElementById('content').innerHTML = allData[0].feelings;
