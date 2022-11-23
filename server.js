@@ -7,8 +7,6 @@ const express = require('express');
 // Start up an instance of app
 const app = express();
 
-
-/* Middleware*/
 /* Dependencies */
 const bodyParser = require('body-parser')
 
@@ -23,12 +21,22 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
+//Post Route
+app.post('/all', (req, res) => {
+    newEntry = {
+    date: req.body.date,
+    temp: req.body.temp,
+    content: req.body.content
+   }
+   projectData.push(newEntry)
+   res.send(projectData)
+  });
+
+
 // Callback function to complete GET '/all'
 app.get('/all', (req,res) => {
   res.send(projectData);
-  projectData = {};
   });
-
 
 
 // Setup Server
@@ -37,13 +45,3 @@ const server = app.listen(port, () =>
 {console.log(`running on localhost: ${port}`)
 });
 
-//Post Route
-app.post('/all', (req, res) => {
-    console.log(req.body);
-    newEntry = {
-    date: req.body.date,
-    temp: req.body.temp,
-    content: req.body.content
-   }
-   projectData.push(newEntry)
-  });
