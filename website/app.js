@@ -1,5 +1,5 @@
 /* Global Variables */
-// Personal API Key for OpenWeatherMap API
+// API URL  and APIKey
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?q='
 const apiKey = 'cbcc3079d870a8e1433045013f9bbe87';
 
@@ -11,7 +11,8 @@ function performAction(e){
   e.preventDefault();
   const zip =  document.getElementById('zip').value;
   const feelings = document.getElementById("feelings").value;
-  
+
+
   getWeather(baseURL, zip, apiKey)
   .then(function(data) {
     console.log(data);
@@ -24,6 +25,7 @@ function performAction(e){
   })
 }; 
 
+// GET
 const getWeather = async (baseURL, zip, apiKey) => {
   const res = await fetch(
     `${baseURL}${zip}&appid=${apiKey}`);
@@ -36,39 +38,39 @@ const getWeather = async (baseURL, zip, apiKey) => {
   }
 };
 
-//  POST
+// POST
 const postData = async ( url = '', data = {})=>{
-  console.log(data);
-  const response = await fetch(url, {
+  const response = await fetch (url, {
   method: 'POST', 
   credentials: 'same-origin',
   headers: {
     'Content-Type': 'application/json',
   },       
-      body: JSON.stringify(data), 
-    });
+  body: JSON.stringify({
+    temp: data.temp,
+    date: data.date,
+    content: data.content
+})
+});
     try {
       const newData = await response.json();
       console.log(newData);
       return newData;
     } catch(error) {
       console.log("error", error);
-    }
-  }
+    };
+  };
 
-// GET
+
 const updateUI = async () =>{
   const request = await fetch('/all');
   try {
-  // Transform into JSON
   const allData = await request.json()
-  // Write updated data to DOM elements
-  document.getElementById('temp').innerHTML = Math.round(allData[0].temp);
-  document.getElementById('content').innerHTML = allData[0].feelings;
-  document.getElementById("date").innerHTML = allData[0].date;
+  document.getElementById('date').innerHTML = allData.date;
+  document.getElementById('temp').innerHTML = allData.temp;
+  document.getElementById('content').innerHTML = allData.content;
   }
   catch(error) {
     console.log("error",error);
-    // appropriately handle the error
   }
 };
