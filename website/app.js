@@ -13,6 +13,7 @@ function performAction(e){
   const feelings = document.getElementById("feelings").value;
 
 
+
   getWeather(baseURL, zip, apiKey)
   .then(function(data) {
     console.log(data);
@@ -40,37 +41,22 @@ const getWeather = async (baseURL, zip, apiKey) => {
 
 // POST
 const postData = async ( url = '', data = {})=>{
-  const response = await fetch (url, {
-  method: 'POST', 
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-  },       
-  body: JSON.parse({
-    temp: data.temp,
-    date: data.date,
-    content: data.content
-})
-});
+    const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.parse(data), // body data type must match "Content-Type" header        
+  });
+
     try {
       const newData = await response.json();
-      console.log(newData);
-      return newData;
-    } catch(error) {
-      console.log("error", error);
-    };
-  };
-
-
-const updateUI = async () =>{
-  const request = await fetch('/all');
-  try {
-  const allData = await request.json()
-  document.getElementById('date').innerHTML = allData.date;
-  document.getElementById('temp').innerHTML = allData.temp;
-  document.getElementById('content').innerHTML = allData.content;
-  }
-  catch(error) {
-    console.log("error",error);
-  }
+      // console.log(newData);
+      return newData
+    }catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
+    }
 };
+postData('/weather', {addWeather})
