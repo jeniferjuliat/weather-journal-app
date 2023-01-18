@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Journal APP</title>
+</head>
+<body>
+    <div class="inputs">
+        <label for="zip">zip code</label>
+        <input type="text" id="zip" placeholder="enter zip code">
+        <label for="feelings">Feelings</label>
+        <textarea name="feelings" id="feelings" cols="30" rows="10"></textarea>
+        <button id="generate">Generate</button>
+    </div>
+    <div class="outputs">
+        <p id="dateNow"></p>
+        <p id="temp"></p>
+        <p class="feeling"></p>
+    </div>
+    <div id="error"></div>
+    <script src="app.js"></script>
+</body>
+</html>
